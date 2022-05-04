@@ -10,6 +10,8 @@ public class Fighting : MonoBehaviour
     public static int numOfClicks = 0;
     float lastClickedTime = 0;
     float maxComboDelay = 1;
+    public AudioClip swordSlashSound;
+    public bool isAttacking = false;
 
     // Start is called before the first frame update
     void Start()
@@ -76,5 +78,14 @@ public class Fighting : MonoBehaviour
             anim.SetBool("Hit3", false);
             anim.SetBool("Hit4", true);
         }
+        isAttacking = true;
+        AudioSource ac = GetComponent<AudioSource>();
+        ac.PlayOneShot(swordSlashSound);
+    }
+
+    IEnumerator ResetAttackBool()
+    {
+        yield return new WaitForSeconds(1.0f);
+        isAttacking = false;
     }
 }
